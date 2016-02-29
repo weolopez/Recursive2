@@ -1,0 +1,13 @@
+
+<ion-navbar *navbar>
+  <button menuToggle>
+    <ion-icon name="menu"></ion-icon>
+  </button>
+  <ion-title>Team Managemet{{selectedItem | async}}!</ion-title>
+</ion-navbar>
+
+<ion-tabs>
+  <ion-tab [root]="teamListRoot" tabTitle="Team List" tabIcon="list"></ion-tab>
+  <ion-tab [root]="teamEditRoot" tabTitle="Edit Team" tabIcon="create" *ngIf="selectedItem | async"></ion-tab>
+  <ion-tab [root]="teamNewRoot" tabTitle="Add Team" tabIcon="add"></ion-tab>
+</ion-tabs>

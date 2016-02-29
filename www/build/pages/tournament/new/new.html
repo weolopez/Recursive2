@@ -1,0 +1,26 @@
+<ion-navbar *navbar>
+    <ion-title>
+        New Tournament
+    </ion-title>
+</ion-navbar>
+
+<ion-content>
+    <ion-card class="tournament-new">
+        <div class="item item-divider">{{name}}</div>
+        <ion-list padding style="width: 100%">
+            <label class="item item-input" name="tournamentName">
+                <input type="text" placeholder="Tournament Name" [(ngModel)]="name"> 
+            </label>
+            <button positive full>Select Games</button>
+            <ion-item>
+                <ion-label>5 Point Score</ion-label>
+                <ion-toggle positive checked="true"></ion-toggle>
+            </ion-item>
+            <ion-item>
+                <ion-label>Player 1pt</ion-label>
+                <ion-toggle positive checked="true"></ion-toggle>
+            </ion-item>
+
+        </ion-list>
+    </ion-card>
+</ion-content>

@@ -1,0 +1,11 @@
+<ion-content class="team-list">
+    <ion-list>
+        <ion-item ion-item *ngFor="#item of team.getInstance().list | o2a" (click)="itemTapped($event, item)">
+            <ion-thumbnail item-left>
+                <img [src]="item.imageurl">
+            </ion-thumbnail>
+            <h2>{{item.name}}</h2>
+        </ion-item>
+
+    </ion-list>
+</ion-content>

@@ -1,0 +1,19 @@
+<ion-navbar *navbar>
+    <login></login>
+
+    <ion-title>
+        Tournament Management
+    </ion-title>
+
+    <ion-buttons end>
+        <button menuToggle style="float: right">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+<ion-tabs>
+  <ion-tab [root]="tournamentListRoot" tabTitle="Tournament List" tabIcon="list"></ion-tab>
+  <ion-tab [root]="tournamentEditRoot" tabTitle="Edit Tournament" tabIcon="create" *ngIf="selectedItem"></ion-tab>
+  <ion-tab [root]="tournamentNewRoot" tabTitle="Add Tournament" tabIcon="add"></ion-tab>
+</ion-tabs>

@@ -1,0 +1,23 @@
+<ion-navbar *navbar>
+    <ion-buttons start>
+        <button (click)="toggleItems()">
+            Login
+        </button>
+    </ion-buttons>
+
+    <ion-title>
+        Game Management
+    </ion-title>
+
+    <ion-buttons end>
+        <button menuToggle style="float: right">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+<ion-tabs>
+  <ion-tab [root]="gameListRoot" tabTitle="Game List" tabIcon="list"></ion-tab>
+  <ion-tab [root]="gameEditRoot" tabTitle="Edit Game" tabIcon="create" *ngIf="selectedItem"></ion-tab>
+  <ion-tab [root]="gameNewRoot" tabTitle="Add Game" tabIcon="add"></ion-tab>
+</ion-tabs>

@@ -1,0 +1,18 @@
+<ion-navbar *navbar>
+    <ion-title>
+        Create a New Team
+    </ion-title>
+</ion-navbar>
+<ion-card class="team-new">
+    <label class="item item-input">
+        <input type="text" placeholder="Team Name"  [(ngModel)]="teamName">
+    </label>
+    <a class="item item-thumbnail-left" href="#">
+        <img id="image" [src]="iurl" style="width: 50px; height: 50px">
+        <canvas id="canid" style="width: 50px; height: 50px"></canvas>
+        <input type="url" placeholder="image URL"  [(ngModel)]="imageURL" (keyup)="iurl=imageURL;">
+    </a>
+    <button class="button button-full button-positive" (click)="addTeam()">
+        Add Team
+    </button>
+</ion-card>

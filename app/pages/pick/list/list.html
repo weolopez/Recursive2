@@ -1,0 +1,92 @@
+<ion-content class="pick-list">
+    <ion-list>
+        <ion-item ion-item *ngFor="#item of pick.getInstance().list | o2k" (click)="itemTapped($event, item)">
+            <style type="text/css">
+                .tg {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    border-color: #aabcfe;
+                }
+                
+                .tg td {
+                    font-family: Arial, sans-serif;
+                    font-size: 14px;
+                    padding: 10px 5px;
+                    border-style: solid;
+                    border-width: 1px;
+                    overflow: hidden;
+                    word-break: normal;
+                    border-color: #aabcfe;
+                    color: #669;
+                    background-color: #e8edff;
+                }
+                
+                .tg th {
+                    font-family: Arial, sans-serif;
+                    font-size: 14px;
+                    font-weight: normal;
+                    padding: 10px 5px;
+                    border-style: solid;
+                    border-width: 1px;
+                    overflow: hidden;
+                    word-break: normal;
+                    border-color: #aabcfe;
+                    color: #039;
+                    background-color: #b9c9fe;
+                }
+                
+                .tg .tg-yw4l {
+                    vertical-align: top
+                }
+            </style>
+            <h4>{{game.list[item].match_time}}</h4>
+            <ion-row>
+                <ion-col>
+                    <h4>{{game.getHomeTeam(item).name}}</h4>
+                </ion-col>
+                <ion-col>
+                    <h4>{{game.getAwayTeam(item).name}}</h4>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <img src="{{game.getHomeTeam(item).imageurl}}">
+                    <h1>{{game.list[item].players.home.length}}</h1>
+                </ion-col>
+
+                <ion-col>
+                    <img src="{{game.getAwayTeam(item).imageurl}}">
+                    <h1>{{game.list[item].players.away.length}}</h1>
+                </ion-col>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <p *ngFor="#player of game.list[item].players.home | o2a">{{player}}</p>
+                </ion-col>
+
+                <ion-col>
+                    <p *ngFor="#player of game.list[item].players.away | o2a">{{player}}</p>
+                </ion-col>
+            </ion-row>
+
+            <table class="tg">
+                <tr>
+                    <th class="tg-yw4l">Name</th>
+                    <th class="tg-yw4l">HS</th>
+                    <th class="tg-yw4l">HP</th>
+                    <th class="tg-yw4l">AS</th>
+                    <th class="tg-yw4l">AP</th>
+                    <th class="tg-yw4l">Total</th>
+                </tr>
+                <tr *ngFor="#pick of pick.getInstance().list[item] | o2k">
+                    <td class="tg-yw4l">{{pick}}</td>
+                    <!--td class="tg-yw4l">{{pick.home_score===game.list[item].players.home.length ? 1 : 0}}</td>
+                    <td class="tg-yw4l">{{getPoints(pick.home_player, game.list[item].players.home)}}</td>
+                    <td class="tg-yw4l">{{pick.away_score===game.list[item].players.away.length ? 1 : 0}}</td>
+                    <td class="tg-yw4l">{{getPoints(pick.away_player, game.list[item].players.away)}}</td>
+                    <td class="tg-yw4l">{{pickHomePoint+pickHomePlayer+pickAwayPoint+pickAwayPlayer}}</td-->
+                </tr>
+            </table>
+        </ion-item>
+    </ion-list>
+</ion-content>

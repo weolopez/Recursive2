@@ -1,0 +1,21 @@
+<ion-content class="game-list">
+    <ion-list>
+        <ion-item ion-item *ngFor="#item of game.getInstance().list | o2a" (click)="itemTapped($event, item)">
+
+            <ion-row> {{item.match_time}}
+            </ion-row>
+
+            <ion-row>
+                <ion-col>
+                    <h4>{{item.home}}</h4>
+                    <img src="{{game.getInstance().getHomeTeam(item.name).imageurl}}">
+                </ion-col>
+                <ion-col>
+                    <h4>{{item.away}}</h4>
+                    <img src="{{game.getInstance().getAwayTeam(item.name).imageurl}}">
+                </ion-col>
+            </ion-row>
+        </ion-item>
+
+    </ion-list>
+</ion-content>

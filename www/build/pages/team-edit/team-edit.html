@@ -1,0 +1,27 @@
+<ion-navbar *navbar>
+    <button menuToggle *ngIf="!selectedItem">
+        <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Item Details</ion-title>
+</ion-navbar>
+
+<ion-content>
+
+    <ion-list>
+        <ion-card class="team-edit">
+            <ion-item>
+                <ion-thumbnail item-left>
+                    <img src="{{selectedItem.imageurl}}">
+                </ion-thumbnail>
+                <h2>{{selectedItem.name}}</h2>
+            </ion-item>
+
+            <label class="item item-input">
+                <input type="text" placeholder="Player Name" [value]="newPlayer">
+            </label>
+            <button class="button button-full button-positive" (click)="addPlayer()">
+                Add
+            </button>
+        </ion-card>
+    </ion-list>
+</ion-content>

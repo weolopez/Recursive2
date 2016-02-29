@@ -1,0 +1,179 @@
+<ion-navbar *navbar>
+    <ion-title>Add Players</ion-title>
+</ion-navbar>
+
+
+<ion-content>
+    <ion-list>
+        <ion-card class="game-edit"*ngFor="#item of games | o2k" [hidden]="isGameInFuture(games[item])">
+            <ion-item ion-item>
+
+                <ion-row (click)="itemTapped(item)">
+                    {{games[item].match_time}}
+                </ion-row>
+
+                <button save *ngIf="item === gameID" (click)=" 
+                                gameID='';
+                                awayScoreColor = 'white';
+                                homeScoreColor = 'white';
+                                save(item);
+                            ">Save Pick
+                </button>
+
+                <ion-row (click)="itemTapped(item)">
+                    <ion-col>
+                        <h4>{{games[item].home}}</h4>
+                    </ion-col>
+                    <ion-col>
+                        <h4>{{games[item].away}}</h4>
+                    </ion-col>
+                </ion-row>
+                
+                <ion-row>
+                    <ion-col width-25 (click)="team='home';
+                                     homeScoreColor = 'green';
+                                     awayScoreColor = 'whitesmoke';
+                                     itemTapped(item); ">
+                        <img src="{{game.getHomeTeam(item).imageurl}}" alt="{{home}}">
+                    </ion-col>
+                    <ion-col width-25 [ngStyle]="{'background': item === gameID ? homeScoreColor:'whitesmoke'}">
+                        <h1 score>{{getScore(item,'home_score')}}</h1>
+                    </ion-col>
+                    <ion-col width-25 (click)="team='away';
+                                 awayScoreColor = 'green';
+                                 homeScoreColor = 'whitesmoke';
+                                 itemTapped(item); ">
+                        <img src="{{game.getAwayTeam(item).imageurl}}" alt="{{away}}">
+                    </ion-col>
+                    <ion-col width-25 [ngStyle]="{'background': item === gameID ? awayScoreColor:'whitesmoke'}">
+                        <h1 score>{{getScore(item,'away_score')}}</h1>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="item === gameID" >
+                    <ion-col>
+                        <h4 style="text-overflow: ellipsis;overflow: hidden;">
+                                    {{picks[gameID][userID]['home_player']}}
+                        </h4>
+                    </ion-col>
+                    <ion-col>
+                        <h4 style="text-overflow: ellipsis;overflow: hidden;">
+                                    {{picks[gameID][userID]['away_player']}}
+                        </h4>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row *ngIf="item === gameID" style="width:100%">
+                    <div class="item range" *ngIf="team==='home'" style="width:100%">
+                        <h1 style="margin: 0;padding: 0;">0</h1>
+                        <input type="range" name="home score" min="0" max="9" [(ngModel)]="picks[gameID][userID]['home_score']" />
+                        <h1 style="margin: 0;padding: 0;">9</h1>
+                    </div>
+                    <div class="item range" *ngIf="team==='away'" style="width:100%">
+                        <h1 style="margin: 0;padding: 0;">0</h1>
+                        <input type="range" name="away score" min="0" max="9" [(ngModel)]="picks[gameID][userID]['away_score']" />
+                        <h1 style="margin: 0;padding: 0;">9</h1>
+                    </div>
+                </ion-row>
+                <ion-row *ngIf="item === gameID">
+                    <ion-col *ngIf="team==='home'" style="width:100%">
+                        <p>{{game.getHomeTeam(item).name}}</p>
+                        <h4 *ngFor="#player of game.getHomeTeam(item).players | o2a" (click)="picks[gameID][userID]['home_player']=player">
+                                {{player}}
+                            </h4>
+                    </ion-col>
+                    <ion-col *ngIf="team==='away'" style="width:100%">
+                        <p>{{game.getAwayTeam(item).name}}</p>
+                        <h4 *ngFor="#player of game.getHomeTeam(item).players | o2a" (click)="picks[gameID][userID]['away_player']=player">
+                                {{player}}
+                            </h4>
+                    </ion-col>
+                </ion-row>
+
+
+            </ion-item>
+
+
+            <!--ion-item>
+                <ion-row>
+                    {{selectedItem.match_time}}
+                </ion-row>
+
+                <ion-row>
+                    <ion-col>
+                        <h4>{{selectedItem.home}}</h4>
+                    </ion-col>
+                    <ion-col>
+                        <h4>{{selectedItem.away}}</h4>
+                    </ion-col>
+                </ion-row>
+                <ion-row>
+                    <ion-col width-25>
+                        <a (click)="team='home'">
+                            <img src="{{game.getInstance().getHomeTeam(selectedItem.name.tobase64url()).imageurl}}" alt="{{selectedItem.home}}">
+                        </a>
+                        <br>
+                    </ion-col>
+                    <ion-col width-25 *ngIf="nhidden === index || selectedItem.home_score">
+                        <div class="score-padding" (click)="team='home'">
+                            <h1 (click)="isHome=true;" style="margin-right: -10%;font-size: 14vw; text-align: center;">
+                            {{getScore(selectedItem.players.home)}}
+                            </h1>
+                        </div>
+                    </ion-col>
+
+                    <ion-col width-25>
+                        <a (click)="team='away'">
+                            <img src="{{game.getInstance().getAwayTeam(selectedItem.name).imageurl}}" alt="{{selectedItem.away}}">
+                        </a>
+                        <br>
+                    </ion-col>
+                    <ion-col width-25 *ngIf="nhidden === index || selectedItem.away_score">
+                        <div class="score-padding" (click)="team='away'">
+                            <h1 (click)="isHome=false;" style="margin-right: -10%;font-size: 14vw; text-align: center;">
+                                {{getScore(selectedItem.players.away)}}
+                                </h1>
+                        </div>
+                    </ion-col>
+                </ion-row>
+
+                <ion-row>
+                    <ion-col>
+                        <ion-list>
+                            <ion-item *ngFor="#player of selectedItem.players.home | o2a" >
+                                {{player}}
+                            </ion-item>
+                        </ion-list>
+                        <button (click)="isHome='home'">Add Home Scorer</button>
+                    </ion-col>
+                    <ion-col>
+                        <ion-list>
+                            <ion-item *ngFor="#player of selectedItem.players.away | o2a" >
+                                {{player}}
+                            </ion-item>
+                        </ion-list>
+                        <button (click)="isHome='away'">Add Away Scorer</button>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="isHome==='home'">
+                    <ion-col>
+                        <ion-list>
+                            <ion-item *ngFor="#player of game.getInstance().getHomeTeam(selectedItem.name.tobase64url()).players | o2a" (click)="addPlayer(player)">
+                                {{player}}
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+                <ion-row *ngIf="isHome==='away'">
+                    <ion-col>
+                        <ion-list>
+                            <ion-item *ngFor="#player of game.getInstance().getAwayTeam(selectedItem.name.tobase64url()).players | o2a" (click)="addPlayer(player)">
+                                {{player}}
+                            </ion-item>
+                        </ion-list>
+                    </ion-col>
+                </ion-row>
+            </ion-item-->
+        </ion-card>
+    </ion-list>
+</ion-content>

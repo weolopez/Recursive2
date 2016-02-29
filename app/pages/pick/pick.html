@@ -1,0 +1,23 @@
+<ion-navbar *navbar>
+    <ion-buttons start>
+        <button (click)="toggleItems()">
+            Login
+        </button>
+    </ion-buttons>
+
+    <ion-title>
+        Picks
+    </ion-title>
+
+    <ion-buttons end>
+        <button menuToggle style="float: right">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+<ion-tabs>
+  <ion-tab [root]="pickEditRoot" tabTitle="Edit Pick" tabIcon="create"></ion-tab>
+  <ion-tab [root]="pickListRoot" tabTitle="Pick List" tabIcon="list"></ion-tab>
+  <ion-tab [root]="pickNewRoot" tabTitle="Add Pick" tabIcon="add" *ngIf="selectedItem"></ion-tab>
+</ion-tabs>

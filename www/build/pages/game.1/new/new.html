@@ -1,0 +1,63 @@
+<ion-navbar *navbar>
+    <ion-title>
+        Create a New Team
+    </ion-title>
+</ion-navbar>
+
+<ion-content>
+    <ion-list>
+        <ion-card class="game-new">
+            <ion-row>
+                Match Time: {{m.month+'/'+m.day+'/'+m.year+' '+m.hour+':'+m.minute+m.hours}}
+            </ion-row>
+
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Home Team: 
+                </div>
+
+                <ion-select [(ngModel)]="m.home">
+                    <ion-option *ngFor="#team of team.getInstance().list | o2a" [value]="team.name">{{team.name}}</ion-option>
+                </ion-select>
+            </label>
+            <label class="item item-input item-select">
+                <div class="input-label">
+                    Away Team: 
+                </div>
+                <ion-select [(ngModel)]="m.away">
+                    <ion-option *ngFor="#team of team.getInstance().list | o2a " [value]="team.name">{{team.name}}</ion-option>
+                </ion-select>
+            </label>
+
+            <ion-item>
+                <div class="input-label" style="float:left;">
+                    Game Date
+                </div>
+                <input type="number" style="width: 70px;float:right" placeholder="2016" size="4" [(ngModel)]="m.year">
+                <input type="number" style="width: 40px;float:right" max="31" size="2" placeholder="30" [(ngModel)]="m.day">
+                <!--input type="number" style="width: 40px;float:right" max="12" size="2" placeholder="12" [(ngModel)]="m.month"-->
+                <select [(ngModel)]="m.month" style="width: 70px;float:right">
+                    <option *ngFor="#p of month" [value]="p">{{p}}</option>
+                </select>
+            </ion-item>
+
+            <ion-item>
+                <div class="input-label" style="float:left;">
+                    Game Time
+                </div>
+                <!--input type="text" style="width: 40px;float:right" placeholder="'AM/PM'" [value]="hours"-->
+                <select [(ngModel)]="m.hours" style="width: 70px;float:right">
+                    <option value="PM">PM</option>
+                    <option value="AM">AM</option>
+                </select>
+                <input type="number" style="width: 40px;float:right" max="60" placeholder="30" [(ngModel)]="m.minute">
+                <div style="width: 10px;float:right;text-align: center;">:</div>
+                <input type="number" style="width: 40px;float:right" max="12" placeholder="12" [(ngModel)]="m.hour">
+            </ion-item>
+
+            <button class="button button-full button-positive" (click)="addGame()">
+                Add
+            </button>
+        </ion-card>
+    </ion-list>
+</ion-content>
