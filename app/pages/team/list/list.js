@@ -1,18 +1,18 @@
 import {Page, NavController, NavParams, Inject} from 'ionic/ionic';
 import {TeamEditPage} from '../edit/edit';
-import {Team} from '../../../models/team/team';
 import {TeamPage} from '../team';
 import {ObjectToArray} from '../../../pipes/object_to_pipe';
+import {Storage} from '../../../models/storage/storage';
 
 @Page({
     templateUrl: 'build/pages/team/list/list.html',
-    providers: [ Team ], 
+    providers: [ Storage ], 
     pipes: [ObjectToArray]
 })
 export class TeamListPage {
-    constructor(nav: NavController, navParams: NavParams, team: Team) {
+    constructor(nav: NavController, navParams: NavParams,storage: Storage) {
         this.nav = nav;
-        this.team=Team;
+        this.storage=storage;
         TeamPage.getInstance().setTeam(undefined);
     }
     itemTapped(event, item) {
@@ -20,6 +20,9 @@ export class TeamListPage {
             item: item
         });
         TeamPage.getInstance().setTeam(item);
+    }
+    getTeams() {
+        return this.storage.teamArray;
     }
 }
  

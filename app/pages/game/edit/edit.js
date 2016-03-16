@@ -1,32 +1,33 @@
 import {Page, NavController, NavParams} from 'ionic/ionic';
-import {Game} from '../../../models/game/game';
-import {ObjectToArray} from '../../../pipes/object_to_pipe'
+import {ObjectToArray} from '../../../pipes/object_to_pipe';
+import {Storage} from '../../../models/storage/storage';
 
 @Page({
     templateUrl: 'build/pages/game/edit/edit.html',
-    providers: [Game], 
+    providers: [Storage, ObjectToArray], 
     pipes: [ObjectToArray]
 })
 export class GameEditPage {
-    constructor(nav: NavController, navParams: NavParams, game: Game) {
+    constructor(nav: NavController, navParams: NavParams, storage: Storage, objectToArray: ObjectToArray) {
         this.nav = nav;
-        this.game = Game;
+        this.storage=storage;
+        this.objectToArray= objectToArray;
+        
         // If we navigated to this page, we will have an item available as a nav param
         this.selectedItem = navParams.get('item');
-        if (!this.selectedItem.players) this.selectedItem.players={};
+        this.homeplayers = objectToArray.filter(this.selectedItem.home, 'name');
+        this.awayplayers = objectToArray.filter(this.selectedItem.away, 'name');
+        
         this.players = this.selectedItem.players;
         if (!this.players) this.players={};
     }
     addPlayer(player) {
-        this.game.getInstance().addPlayer(this.selectedItem.name, this.isHome, player);
-        if (!this.selectedItem.players[this.isHome]) 
-            this.selectedItem.players[this.isHome]={'0':player}
+        var gep = this;
+        this.storage.add(player, 'games', this.selectedItem.name, this.isHome)
+       
+        if (this.isHome==='home') 
+            gep.homeplayers.push(player);
         else
-            this.selectedItem.players[this.isHome][player.tobase64url]=player;
-    }
-    getScore(o,h) {
-        if ( (!o) ||
-             (!o.players[h]) )return 0;
-        return Object.keys(o.players[h]).length||0;
+            gep.awayplayers.push(player);
     }
 }

@@ -1,6 +1,6 @@
 <ion-content class="pick-list">
     <ion-list>
-        <ion-item ion-item *ngFor="#item of pick.getInstance().list | o2k" (click)="itemTapped($event, item)">
+        <ion-item ion-item *ngFor="#item of storage.picks" (click)="itemTapped($event, item)">
             <style type="text/css">
                 .tg {
                     border-collapse: collapse;

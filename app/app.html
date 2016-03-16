@@ -1,3 +1,19 @@
+<ion-navbar *navbar>
+    <login></login>
+
+    <ion-title>
+        Wiki Pages
+    </ion-title>
+
+    <ion-buttons end>
+        <button menuToggle style="float: right">
+            <ion-icon name="menu"></ion-icon>
+        </button>
+    </ion-buttons>
+</ion-navbar>
+
+
+
 <ion-menu id="leftMenu" [content]="content" side="right">
 
   <ion-toolbar>
@@ -13,5 +29,6 @@
   </ion-content>
 
 </ion-menu>
+
 
 <ion-nav id="nav" [root]="rootPage" #content swipe-back-enabled="true"></ion-nav>

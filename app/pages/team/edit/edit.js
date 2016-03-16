@@ -1,19 +1,24 @@
 import {Page, NavController, NavParams} from 'ionic/ionic';
-import {Team} from '../../../models/team/team';
+import {Storage} from '../../../models/storage/storage';
 import {ObjectToArray} from '../../../pipes/object_to_pipe';
 
 @Page({
     templateUrl: 'build/pages/team/edit/edit.html',
-    providers: [Team], 
+    providers: [Storage, ObjectToArray], 
     pipes: [ObjectToArray]
 })
 export class TeamEditPage {
-    constructor(nav: NavController, navParams: NavParams, team: Team) {
+    constructor(nav: NavController, navParams: NavParams, storage: Storage, objectToArray: ObjectToArray) {
         this.nav = nav;
-        this.team = team;
+        this.storage = storage;
         // If we navigated to this page, we will have an item available as a nav param
         this.selectedItem = navParams.get('item');
-        this.players = this.selectedItem.players;
+        this.players = objectToArray.filter(this.selectedItem.players, name);
         if (!this.players) this.players={};
     }
+    addPlayer() {
+        this.storage.add(this.newPlayer, 'teams', this.selectedItem.name, 'players');
+        this.players.push(this.newPlayer);
+    }
+    
 }

@@ -1,31 +1,22 @@
 import {Page, NavController, NavParams} from 'ionic/ionic';
-import {Pick} from '../../../models/pick/pick';
-import {Game} from '../../../models/game/game';
 import {User} from '../../../models/user/user';
 import {ObjectToKey, ObjectToArray} from '../../../pipes/object_to_pipe'
+import {Storage} from '../../../models/storage/storage';
+import {GameEdit} from '../../../components/game/game';
+import {FILE_UPLOAD_DIRECTIVES, FileUploader} from 'ng2-file-upload';
 
 @Page({
     templateUrl: 'build/pages/pick/edit/edit.html',
-    providers: [Pick, Game], 
-    pipes: [ObjectToKey, ObjectToArray]
+    providers: [Storage], 
+    pipes: [ObjectToKey, ObjectToArray],
+    directives: [GameEdit]
 })
 export class PickEditPage {
-    constructor(nav: NavController, navParams: NavParams, pick: Pick, game: Game) {
+    constructor(nav: NavController, navParams: NavParams, storage: Storage) {
         this.nav = nav;
-        this.pick = Pick.getInstance();
+        this.storage = storage;
         this.user = User.getInstance();
-        this.game = Game.getInstance();
         
-        if (!Game.list) {
-            this.game.getList().then( v=>this.games=v.val() );
-        } else {
-            this.games=Game.list;
-        }
-        if (!Pick.list) {
-            this.pick.getList().then( v=>this.picks=v.val() );
-        } else {
-            this.picks=Pick.list;
-        }
     }
     save(item) {
         this.pick.addPick(item, this.userID, this.picks[item][this.userID]);

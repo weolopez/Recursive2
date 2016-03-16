@@ -7,7 +7,7 @@ let instance;
 
 @Page({
   templateUrl: 'build/pages/team/team.html'
-})
+}) 
 export class TeamPage {
   constructor(nav: NavController, navParams: NavParams) {
     if(!instance){

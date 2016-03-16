@@ -1,20 +1,18 @@
 import {Page, NavController, NavParams, Inject} from 'ionic/ionic';
 import {PickEditPage} from '../edit/edit';
-import {Pick} from '../../../models/pick/pick';
-import {Game} from '../../../models/game/game';
 import {PickPage} from '../pick';
 import {ObjectToKey, ObjectToArray} from '../../../pipes/object_to_pipe';
+import {Storage} from '../../../models/storage/storage';
 
 @Page({
     templateUrl: 'build/pages/pick/list/list.html',
-    providers: [ Pick, Game ], 
+    providers: [ Storage ], 
     pipes: [ObjectToKey, ObjectToArray]
 })
 export class PickListPage {
-    constructor(nav: NavController, navParams: NavParams, pick:Pick, game:Game) {
+    constructor(nav: NavController, navParams: NavParams, storage: Storage) {
         this.nav = nav;
-        this.pick = Pick;
-        this.game = Game.getInstance();
+        this.storage = storage;
     }
     itemTapped(event, item) {
         this.nav.push(PickEditPage, {

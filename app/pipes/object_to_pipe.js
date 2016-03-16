@@ -11,7 +11,14 @@ export class ObjectToArray implements PipeTransform {
                 a.push(value[b]);
         }
         return a;
-
+    }
+    filter(o, filter) {
+        var a = [];
+        for (var b in o) {
+            if (b!==filter)
+                a.push(o[b]);
+        }
+        return a;
     }
 }
 

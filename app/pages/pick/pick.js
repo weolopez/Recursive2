@@ -2,11 +2,13 @@ import {Page, NavController, NavParams, Injectable} from 'ionic/ionic';
 import {PickListPage} from './list/list';
 import {PickEditPage} from './edit/edit';
 import {PickNewPage} from './new/new';
+import {Login} from '../../components/login/login';
 
 let instance;
 
 @Page({
-  templateUrl: 'build/pages/pick/pick.html'
+  templateUrl: 'build/pages/pick/pick.html',
+    directives: [Login],
 })
 export class PickPage {
   constructor(nav: NavController, navParams: NavParams) {

@@ -4,6 +4,11 @@
  * and open the template in the editor.
  */
 (function () {
+    function o2afilter(o, filter) {
+        var k = Object.keys(o);
+        k.forEach();
+        return k;
+    };
     function SelectText(element) {
         var doc = document
             , text = doc.getElementById(element)

@@ -2,6 +2,7 @@ var path = require('path');
 
 
 module.exports = {
+    
   entry: [
     path.normalize('es6-shim/es6-shim.min'),
     'reflect-metadata',

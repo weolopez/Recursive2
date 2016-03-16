@@ -5,6 +5,7 @@
 
 <ion-content>
     <ion-list>
+
         <ion-card class="game-edit">
             <ion-item>
                 <ion-row>
@@ -13,37 +14,37 @@
 
                 <ion-row>
                     <ion-col>
-                        <h4>{{selectedItem.home}}</h4>
+                        <h4>{{selectedItem.home.name}}</h4>
                     </ion-col>
                     <ion-col>
-                        <h4>{{selectedItem.away}}</h4>
+                        <h4>{{selectedItem.away.name}}</h4>
                     </ion-col>
                 </ion-row>
                 <ion-row>
                     <ion-col width-25>
                         <a (click)="team='home'">
-                            <img src="{{game.getInstance().getHomeTeam(selectedItem.name.tobase64url()).imageurl}}" alt="{{selectedItem.home}}">
+                            <img src="{{storage.get('teams', selectedItem.home.name, 'imageurl')}}" alt="{{selectedItem.home}}">
                         </a>
                         <br>
                     </ion-col>
                     <ion-col width-25 *ngIf="nhidden === $index || selectedItem.home_score">
                         <div class="score-padding" (click)="team='home'">
                             <h1 score (click)="isHome=true;"> 
-                            {{getScore(selectedItem,'home')}}
+                            {{homeplayers.length}}
                             </h1>
                         </div>
                     </ion-col>
 
                     <ion-col width-25>
                         <a (click)="team='away'">
-                            <img src="{{game.getInstance().getAwayTeam(selectedItem.name.tobase64url()).imageurl}}" alt="{{selectedItem.away}}">
+                            <img src="{{storage.get('teams', selectedItem.away.name, 'imageurl')}}" alt="{{selectedItem.away}}">
                         </a>
                         <br>
                     </ion-col>
                     <ion-col width-25 *ngIf="nhidden === $index || selectedItem.away_score">
                         <div class="score-padding" (click)="team='away'">
                             <h1 score (click)="isHome=false;">
-                                {{getScore(selectedItem,'away')}}
+                                {{awayplayers.length}}
                             </h1>
                         </div>
                     </ion-col>
@@ -52,7 +53,7 @@
                 <ion-row>
                     <ion-col>
                         <ion-list>
-                            <ion-item *ngFor="#player of selectedItem.players.home | o2a" >
+                            <ion-item *ngFor="#player of homeplayers" >
                                 {{player}}
                             </ion-item>
                         </ion-list>
@@ -60,7 +61,7 @@
                     </ion-col>
                     <ion-col>
                         <ion-list>
-                            <ion-item *ngFor="#player of selectedItem.players.away | o2a" >
+                            <ion-item *ngFor="#player of awayplayers" >
                                 {{player}}
                             </ion-item>
                         </ion-list>
@@ -70,7 +71,7 @@
                 <ion-row *ngIf="isHome==='home'">
                     <ion-col>
                         <ion-list>
-                            <ion-item *ngFor="#player of game.getInstance().getHomeTeam(selectedItem.name.tobase64url()).players | o2a" (click)="addPlayer(player)">
+                            <ion-item *ngFor="#player of storage.get('teams', selectedItem.home.name, 'players') | o2a" (click)="addPlayer(player)">
                                 {{player}}
                             </ion-item>
                         </ion-list>
@@ -79,7 +80,7 @@
                 <ion-row *ngIf="isHome==='away'">
                     <ion-col>
                         <ion-list>
-                            <ion-item *ngFor="#player of game.getInstance().getAwayTeam(selectedItem.name.tobase64url()).players | o2a" (click)="addPlayer(player)">
+                            <ion-item *ngFor="#player of storage.get('teams', selectedItem.away.name, 'players') | o2a" (click)="addPlayer(player)">
                                 {{player}}
                             </ion-item>
                         </ion-list>

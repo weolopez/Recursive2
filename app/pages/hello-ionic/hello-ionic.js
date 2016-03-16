@@ -3,13 +3,35 @@ import {Login} from '../../components/login/login';
 import {Edit} from  '../../components/edit/edit';
 import {ObjectToArray, ObjectToKey} from '../../pipes/object_to_pipe';
 
+import {PickPage} from '../pick/pick';
+import {TeamPage} from '../team/team';
+import {TournamentPage} from '../tournament/tournament';
+import {TournamentNewPage} from '../tournament/new/new';
+import {GamePage} from '../game/game';
+import {User} from '../../models/user/user';
+
+
 @Page({
     templateUrl: 'build/pages/hello-ionic/hello-ionic.html',
     directives: [Login, Edit],
-    pipes: [ObjectToArray, ObjectToKey]
+    pipes: [ObjectToArray, ObjectToKey],
+    providers: [User]
 })
 export class HelloIonicPage {
     constructor() {
+
+        this.game = Game.getInstance();
+        this.user = User.getInstance();
+    
+        // set our app's pages
+        this.pages = [
+            { title: 'Welcome', component: HelloIonicPage },
+            { title: 'Pick', component: PickPage },
+            { title: 'Team', component: TeamPage },
+            { title: 'Game', component: GamePage },
+            { title: 'Tournament', component: TournamentPage }
+        ];
+
         this.types = {
             teams: {
                 type: 'type',
@@ -18,7 +40,7 @@ export class HelloIonicPage {
                     name: 'Team Name',
                     imageurl: 'http://'
                 }
-                
+
             },
             games: {
                 type: 'type',
@@ -27,7 +49,7 @@ export class HelloIonicPage {
                     name: '@home+away+epoch',
                     home: 'home team',
                     away: 'away team',
-                    epoch: 'epoch game time', 
+                    epoch: 'epoch game time',
                     players: {
                         home: [],
                         away: []
@@ -61,9 +83,9 @@ export class HelloIonicPage {
         this.getTypeList();
     }
     itemTapped(event, item) {
-       // this.nav.push(this, {
-       //     item: item
-       // });
+        // this.nav.push(this, {
+        //     item: item
+        // });
     }
     getTypeList() {
         var t = this;
@@ -75,5 +97,13 @@ export class HelloIonicPage {
                 t.types[name].list = value.val();
             });
         }
+    }
+
+    openPage(page) {
+        // close the menu when clicking a link from the menu
+        this.app.getComponent('leftMenu').close();
+        // navigate to the new page if it is not the current page
+        let nav = this.app.getComponent('nav');
+        nav.setRoot(page.component);
     }
 }

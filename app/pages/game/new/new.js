@@ -1,21 +1,20 @@
 import {Page, NavController} from 'ionic/ionic';
-import {Game} from '../../../models/game/game';
-import {Team} from '../../../models/team/team';
 import {GameListPage} from '../list/list';
 import {ObjectToArray} from '../../../pipes/object_to_pipe';
 import {DatePipe} from 'angular2/common';
+import {Storage} from '../../../models/storage/storage';
 
 
 @Page({
     templateUrl: 'build/pages/game/new/new.html',
-    providers: [Team, Game, GameListPage],
+    providers: [GameListPage, Storage],
     pipes: [ObjectToArray]
 })
 export class GameNewPage {
-    constructor(nav: NavController, game: Game, team: Team) {
+    constructor(nav: NavController, storage: Storage) {
         this.nav = nav;
-        this.game = Game.getInstance();
-        this.team = Team;
+        this.storage=storage;
+        
         this.datePipe = new DatePipe();
         this.iurl = 'http://cumbrianrun.co.uk/wp-content/uploads/2014/02/default-placeholder.png';
         this.m = {
@@ -31,9 +30,9 @@ export class GameNewPage {
         this.month = ['Jan', 'Feb', 'March', 'April', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
     }
     addGame() {
-            this.game.addGame(this.newGame.name, this.newGame);
-            this.game.getList();
-            this.nav.setRoot(GameListPage);
+       // this.game.addGame(this.newGame.name, this.newGame);
+        this.storage.add(this.newGame, 'games');
+        this.nav.setRoot(GameListPage);
     }
     getDateString() {
         let h = 0;
@@ -54,9 +53,11 @@ export class GameNewPage {
         } catch (e) {
             console.log(e); // pass exception object to error handler
         }
+        if (this.m.home.constructor === Array) this.m.home=this.m.home[0];
+        if (this.m.away.constructor === Array) this.m.away=this.m.away[0];
         this.newGame = {
-            home: this.m.home,
-            away: this.m.away,
+            home: {name:this.m.home},
+            away: {name:this.m.away},
             epoch: this.gameDate.getTime(),
             name: this.m.home + this.m.away + this.gameDate.getTime().toString(),
             match_time: d
